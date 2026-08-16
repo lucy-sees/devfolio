@@ -1,89 +1,38 @@
-// components/section/contact/index.tsx
+// components/sections/contact/index.tsx
 "use client";
 import { Globe } from "lucide-react";
 import ChatAssistant from "./chat-assistant";
 import { ContactForm } from "./contact-form";
-import { useRef, useState, useEffect } from "react";
-import * as THREE from 'three';
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import useCurSection from "@/hooks/use-cur-section";
 import data from "@/data";
 import Image from "next/image";
+import { scaleIn } from "@/lib/motion";
 
 export default function ContactSection() {
-  const [gameTurnsLeft, setGameTurnsLeft] = useState(1);
-  const [containerAnimation, setContainerAnimation] = useState({
-    opacity: 0,
-    scale: 0.9
-  });
   const ref = useRef(null);
   useCurSection(ref, 0.5);
 
-  // Three.js inspired animation system
-  useEffect(() => {
-    let animationFrameId: number;
-    const startTime = Date.now();
-    const duration = 600; // 0.6 seconds
-
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Cubic ease-out function
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      
-      setContainerAnimation({
-        opacity: easeOut,
-        scale: 0.9 + (0.1 * easeOut) // Scale from 0.9 to 1.0
-      });
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(animate);
-      }
-    };
-
-    // Start animation with a small delay for better visual flow
-    const timeoutId = setTimeout(() => {
-      animationFrameId = requestAnimationFrame(animate);
-    }, 100);
-
-    return () => {
-      clearTimeout(timeoutId);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-  }, []);
-
   return (
-    <div
-      ref={ref}
-      id="contact"
-      className="w-full flex flex-col items-center container py-32"
-    >
-      <Image
-        src="/imgs/logo.png"
-        alt="Contact"
-        width={150}
-        height={150}
-        className="my-4"
-      />
+    <div ref={ref} id="contact" className="w-full flex flex-col items-center container py-32">
+      <Image src="/imgs/logo.png" alt="Contact" width={150} height={150} className="my-4" />
       <h1 className="text-center text-2xl md:text-4xl mb-12">
         <span className="text-gradient-primary">{"{ "}</span>
         Contact Me
         <span className="text-gradient-primary">{" }"}</span>
       </h1>
       <div className="flex items-center gap-6 flex-col lg:flex-row justify-around w-full h-full">
-        <div className="flex flex-col items-center gap-2 text-center w-[450px]">
+        <div className="flex flex-col items-center gap-2 text-center w-full max-w-[450px]">
           <ChatAssistant />
         </div>
 
-        <div
-          style={{
-            opacity: containerAnimation.opacity,
-            transform: `scale(${containerAnimation.scale})`,
-            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
-          }}
-          className="w-[450px] h-[500px] rounded-2xl bg-muted border overflow-hidden"
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={scaleIn}
+          className="w-full max-w-[450px] h-[500px] rounded-2xl bg-muted border border-border overflow-hidden"
         >
           <div className="flex justify-between flex-shrink-0 px-4 pt-2">
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -91,15 +40,15 @@ export default function ContactSection() {
               <span>{data.contact.email}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="block rounded-full size-3 bg-green-500 ml-auto" />
-              <span className="block rounded-full size-3 bg-yellow-500" />
-              <span className="block rounded-full size-3 bg-red-500 " />
+              <span className="block rounded-full size-3 bg-mint ml-auto" />
+              <span className="block rounded-full size-3 bg-gold" />
+              <span className="block rounded-full size-3 bg-pink" />
             </div>
           </div>
           <div className="p-6">
             <ContactForm />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,21 +1,22 @@
 import data from "@/data";
 import { cn } from "@/lib/utils";
-import { File, Github, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import Link from "next/link";
 
 export default function Sidebar() {
   return (
-    <div className="h-full border-r bg-muted hidden lg:flex flex-col justify-start flex-shrink-0 border border-cyan-300">
+    <div className="h-full border-r border-border bg-muted hidden lg:flex flex-col justify-start flex-shrink-0">
       <Link
         href="/"
         className={cn(
-          "relative size-14 flex items-center justify-center text-muted-foreground hover:bg-background",
-          "text-foreground bg-background hover:bg-background"
+          "relative size-14 flex items-center justify-center text-foreground bg-background hover:bg-background transition-colors"
         )}
       >
-        <BorderActive /> <Info />
+        <ActiveIndicator />
+        <Info size={20} />
       </Link>
-      <div className="border border-cyan-300">
+
+      <div className="flex flex-col mt-auto">
         {data.sidebar.links.map(
           (link) =>
             link.link && (
@@ -23,11 +24,9 @@ export default function Sidebar() {
                 key={link.name}
                 href={link.link}
                 target="_blank"
-                className={cn(
-                  "border border-cyan-300 relative size-14 flex items-center justify-center text-muted-foreground hover:bg-background mt-auto"
-                )}
+                className="relative size-14 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors"
               >
-                <link.icon />
+                <link.icon size={20} />
               </Link>
             )
         )}
@@ -36,6 +35,6 @@ export default function Sidebar() {
   );
 }
 
-const BorderActive = () => (
-  <div className="absolute left-0 top-0 h-full w-0.5 bg-primary-foreground border border-orange-400 m-1" />
+const ActiveIndicator = () => (
+  <div className="absolute left-0 top-1 bottom-1 w-0.5 bg-primary rounded-full" />
 );

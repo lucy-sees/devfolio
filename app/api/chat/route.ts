@@ -2,8 +2,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 import data from "@/data";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
 // Create a context string from your data
 const createContextFromData = () => {
   const projects = data.projects.projects
@@ -14,8 +12,8 @@ const createContextFromData = () => {
 
   return `
     About Lucy W. Mwangi:
-    - Senior Full Stack Developer specializing in Next.js, React, and AI Integration
-    - Over 10 years of experience in web development and 2 years of experience in AI implementation
+    - Tech Lead @ Hurudevs, specializing in Next.js, React, and AI Integration
+    - Extensive experience in web development and AI implementation
     - Email: ${data.contact.email}
     
     Core Expertise:
@@ -84,6 +82,14 @@ const MESSAGE_HISTORY_LIMIT = 5;
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.GEMINI_API_KEY) {
+      return NextResponse.json(
+        { error: "AI assistant is not configured." },
+        { status: 500 }
+      );
+    }
+
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const { messages } = await req.json();
 
     const model = genAI.getGenerativeModel({

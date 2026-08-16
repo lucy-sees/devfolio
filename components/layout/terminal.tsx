@@ -85,27 +85,27 @@ export default function Terminal() {
   };
 
   return (
-    <div className="border-t w-full text-xs h-full bg-muted overflow-hidden border border-cyan-300">
+    <div className="border-t border-border w-full text-xs h-full bg-muted overflow-hidden">
       {/* tabs */}
       <ul className="flex items-start gap-4 sticky top-0 text-muted-foreground px-4 py-2 bg-muted flex-shrink-0">
         <li className="cursor-pointer hover:text-foreground">PROBLEMS</li>
         <li className="cursor-pointer hover:text-foreground">OUTPUT</li>
         <li className="cursor-pointer hover:text-foreground">DEBUG CONSOLE</li>
         <li className="relative text-foreground">
-          TERMINAL <div className="absolute -bottom-1 w-full h-0.5 bg-primary-foreground" />
+          TERMINAL <div className="absolute -bottom-1 w-full h-0.5 bg-primary" />
         </li>
         <li className="cursor-pointer hover:text-foreground">PORTS</li>
         <li className="cursor-pointer hover:text-foreground">GITLENS</li>
       </ul>
       {/* console */}
       <ul ref={ref} className="w-full px-6 pt-8 pb-4 cursor-text h-full overflow-y-scroll" onClick={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
-        {terminalLines.map((line) => {
+        {terminalLines.map((line, lineIndex) => {
           const lineArr = line.split("✓");
           return (
-            <li key={Math.random()}>
-              {lineArr.map((value) =>
+            <li key={`${lineIndex}-${line}`}>
+              {lineArr.map((value, segmentIndex) =>
                 !value ? (
-                  <span className="text-green-500 font-extrabold" key={Math.random()}>
+                  <span className="text-green-500 font-extrabold" key={`check-${lineIndex}-${segmentIndex}`}>
                     ✓
                   </span>
                 ) : (

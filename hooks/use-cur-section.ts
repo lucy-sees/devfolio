@@ -3,13 +3,13 @@ import { useRouter } from "next/navigation";
 import { RefObject, useEffect, useState, useRef } from "react";
 
 export default function useCurSection(
-  curSectionRef: RefObject<Element>, 
+  curSectionRef: RefObject<Element | null>,
   amount: number | "all" | "some" = "all"
 ) {
   const [isInView, setIsInView] = useState(false);
   const router = useRouter();
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
   const lastStateRef = useRef<boolean>(false);
 
   useEffect(() => {

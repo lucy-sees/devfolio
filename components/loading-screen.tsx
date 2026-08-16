@@ -11,7 +11,10 @@ export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Hide loader after component mounts (hydration complete)
+    // Intentional one-time mount signal so the loader only renders during
+    // SSR/hydration and disappears once the client has taken over — this is
+    // the documented exception to the set-state-in-effect rule.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoading(false);
   }, []);
 

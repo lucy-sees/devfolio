@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata as NextMetadata } from "next";
-import { Fira_Code } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 // Extend the existing Metadata type
@@ -14,17 +14,25 @@ interface Metadata extends NextMetadata {
   };
 }
 
-const firaCode = Fira_Code({ subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lucy-wanjiru-mwangi.vercel.app"),
   title: {
     default:
-      "Lucy W. Mwangi | Next.js & React Developer | AI Integration Specialist",
+      "Lucy W. Mwangi | Tech Lead @ Hurudevs | Next.js & React Developer",
     template: "%s | Lucy W. Mwangi",
   },
   description:
-    "Senior Full Stack Developer specializing in Next.js, React, and AI Integration. Expert in building high-performance web applications with modern technologies.",
+    "Tech Lead at Hurudevs, specializing in Next.js, React, and AI integration. Expert in building, fixing, and scaling high-performance web applications.",
   keywords: [
+    "Lucy W. Mwangi",
+    "Hurudevs",
+    "Tech Lead",
     "Next.js Developer",
     "React Developer",
     "AI Integration",
@@ -34,9 +42,7 @@ export const metadata: Metadata = {
     "TypeScript",
     "Frontend Developer",
     "Software Engineer",
-    "Web Applications",
-    "Performance Optimization",
-    "Lucy W. Mwangi",
+    "Kenya Software Developer",
   ],
   authors: [{ name: "Lucy W. Mwangi" }],
   creator: "Lucy W. Mwangi",
@@ -45,23 +51,24 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://lucy-wanjiru-mwangi.vercel.app",
     siteName: "Lucy W. Mwangi Portfolio",
-    title: "Lucy W. Mwangi | Next.js & React Developer",
+    title: "Lucy W. Mwangi | Tech Lead @ Hurudevs",
     description:
-      "Senior Full Stack Developer specializing in Next.js, React, and AI Integration. Building high-performance web applications.",
+      "Tech Lead at Hurudevs, specializing in Next.js, React, and AI integration. Building high-performance web applications.",
     images: [
       {
         url: "/imgs/website.png",
         width: 1200,
         height: 630,
-        alt: "Lucy W. Mwangi - Next.js & React Developer",
+        alt: "Lucy W. Mwangi - Tech Lead @ Hurudevs",
       },
     ],
   },
-  X: { // Now this is valid
+  X: {
+    // Now this is valid
     card: "summary_large_image",
-    title: "Lucy W. Mwangi | Next.js & React Developer",
+    title: "Lucy W. Mwangi | Tech Lead @ Hurudevs",
     description:
-      "Junior Full Stack Developer specializing in Next.js, React, and AI Integration",
+      "Tech Lead @ Hurudevs, specializing in Next.js, React, and AI Integration",
     images: ["/imgs/website.png"],
     creator: "@lucy-sees",
   },
@@ -91,8 +98,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="dark" lang="en">
-      <body className={firaCode.className}>{children}</body>
+    <html className={`dark ${jetbrainsMono.variable}`} lang="en">
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

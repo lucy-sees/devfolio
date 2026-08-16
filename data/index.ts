@@ -1,8 +1,9 @@
-import { Github, Linkedin, Youtube } from "lucide-react";
+import { GithubIcon, LinkedinIcon, YoutubeIcon } from "@/components/icons/brand-icons";
 
 const data = {
   home: {
     name: "Lucy W. Mwangi",
+    role: "Tech Lead @ Hurudevs",
     description:
       "I Fix, Optimize & Build #Next_js & #React Apps - Powered by #AI", // # -> for css style, _ -> create space, __ -> creates dash
     cvLink: "#contact",
@@ -12,17 +13,17 @@ const data = {
       {
         name: "github",
         link: "https://github.com/lucy-sees",
-        icon: Github,
+        icon: GithubIcon,
       },
       {
         name: "linkedin",
         link: "https://www.linkedin.com/in/lucy-wanjiru-mwangi/",
-        icon: Linkedin,
+        icon: LinkedinIcon,
       },
       {
         name: "youtube",
         link: "https://www.youtube.com/@lonewolfke",
-        icon: Youtube,
+        icon: YoutubeIcon,
       },
     ],
   },

@@ -24,7 +24,7 @@ A modern, interactive portfolio website built with Next.js, React, and TypeScrip
 - **Code Highlighting**: Prism React Renderer
 - **UI Components**: Custom components with shadcn/ui
 - **AI Model**: Google Gemini
-- **Deployment**: Vercel
+- **Deployment**: Netlify
 
 ## Getting Started
 
@@ -92,8 +92,8 @@ The following environment variables are required:
 
 Lucy W. Mwangi
 
-- Website: [Lucy](https://lucy-wanjiru-mwangi.vercel.app)
-- Email: lucy.mwangi.dev@gmail.com
+- Website: [Lucy](https://devforlio.netlify.app)
+- Email me at: hello@lucy-is-a.dev (mailto: lucywanjirumwangi21@gmail.com)
 - GitHub: [@lucy-sees](https://github.com/lucy-sees)
 
 ## License

@@ -1,15 +1,30 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSyncExternalStore } from "react";
+
+// Subscribes to the browser's URL hash via useSyncExternalStore instead of
+// mirroring window.location.hash into state inside an effect — this reads
+// correctly on the very first render and updates on back/forward navigation.
+function subscribe(callback: () => void) {
+  window.addEventListener("hashchange", callback);
+  window.addEventListener("popstate", callback);
+  return () => {
+    window.removeEventListener("hashchange", callback);
+    window.removeEventListener("popstate", callback);
+  };
+}
+
+function getSnapshot() {
+  return window.location.hash;
+}
+
+function getServerSnapshot() {
+  return "";
+}
 
 export default function useHash() {
-  const [hash, setHash] = useState<undefined | string>();
+  const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const router = useRouter();
-  const params = useParams();
-
-  useEffect(() => {
-    setHash(window.location.hash);
-  }, [params]);
 
   const updateHash = (newHash: string) => {
     router.push(`#${newHash}`, { scroll: false });
